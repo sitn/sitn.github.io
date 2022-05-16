@@ -7,14 +7,15 @@
 </head>
 <body>
     <textarea name="data" id="data" cols="30" rows="10">LINESTRING(2564803.02 1208941.417,2564166.145 1208447.139)</textarea>
-    <button id="post" type="button" onclick="sendData()">POST!</button>
+    <button id="post" type="button" onclick="sendData('')">POST to prod!</button>
+    <button id="post" type="button" onclick="sendData('/next')">POST to /next!</button>
     <p id="result"></p>
     <script>
         const xhr = new XMLHttpRequest();
         const dataEl = document.getElementById("data");
 
-        function sendData() {
-            xhr.open("POST", 'https://sitn.ne.ch/get_pr_from_wkt', true); 
+        function sendData(baseurl) {
+            xhr.open("POST", `https://sitn.ne.ch${baseurl}/get_pr_from_wkt`, true); 
             xhr.onreadystatechange = function() { //Appelle une fonction au changement d'état.
                 if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                     const resultEl = document.getElementById("result");
